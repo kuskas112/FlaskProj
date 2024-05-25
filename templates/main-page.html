@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../images/icon.png">
+    <link href="{{ url_for('static', filename='css/main-page-style.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="css-selector">
+
+       <div class="context">
+            <h1>МузКвиз</h1>
+            <p>Пройди захватывающий музыкальный квиз и покажи свои знания в мире музыки!</p>
+        </div>
+
+        <div class="center">
+            {% if log == 'yes' %}
+            <div class="context">
+                <h1>Добро пожаловать, {{ name }}</h1>
+            </div>
+            <form action="/" method="post">
+                <p><input type="submit" value="Выйти" class="exit-button"></p>
+            </form>
+            {% else %}
+            <form action="/" method="post">
+                <p><input placeholder="Введи имя пользователя" class="input" name="login" type="text"></p>
+                <p><input placeholder="Введи пароль" class="input" name="password" type="text"></p>
+                <p><input type="submit" value="Отправить" class="enter-button"></p>
+            </form>
+            {% endif %}
+
+
+
+        </div>
+
+    <div class="cards">
+            <a  href="#modal-opened1" class="card" id="modal-closed1">
+              <div class="card-content">
+                <span>Аудио режим</span>
+                <p>30-секундные аудиофрагменты песен</p>
+              </div>
+            </a>
+
+            <a href="#modal-opened2" class="card" id="modal-closed2">
+              <div class="card-content">
+                <span>Текстовый режим</span>
+                <p>Небольшие отрывки из текстов песен</p>
+              </div>
+            </a>
+    </div>
+
+
+    <div class="modal-container" id="modal-opened1">
+      <div class="modal">
+
+        <div class="modal__details">
+          <h1 class="modal__title">Выбери жанр</h1>
+        </div>
+
+          <div class="modal__cards">
+
+              {% for genre in genres %}
+              <a href="{{ url_for('audio_mode', genre_id=genre.id) }}">
+                  <div class="modal__card" tabindex="0">
+                      <div class="modal__card-content">
+                        <p>{{ genre.genre }}</p>
+                      </div>
+                  </div>
+              </a>
+              {% endfor %}
+
+          </div>
+
+    <a href="#modal-closed1" class="link-2"></a>
+      </div>
+    </div>
+
+
+    <div class="modal-container" id="modal-opened2">
+      <div class="modal">
+
+        <div class="modal__details">
+          <h1 class="modal__title">Выбери жанр</h1>
+        </div>
+
+        <div class="modal__cards">
+              {% for genre in genres %}
+              <a href="{{ url_for('text_mode', genre_id=genre.id) }}">
+                  <div class="modal__card" tabindex="0">
+                      <div class="modal__card-content">
+                        <p>{{ genre.genre }}</p>
+                      </div>
+                  </div>
+              </a>
+              {% endfor %}
+
+        </div>
+        <a href="#modal-closed2" class="link-2"></a>
+      </div>
+    </div>
+
+</body>
+</html>

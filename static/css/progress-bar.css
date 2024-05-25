@@ -1,0 +1,50 @@
+
+body {
+  background: grey;
+}
+
+@keyframes loader {
+
+  0% {
+    width: 0;
+    background: #81eef4
+  }
+
+  100% {
+    width: 100%;
+    background: #36a472
+  }
+
+}
+
+.progress-bar {
+  border-radius: 60px;
+  overflow: hidden;
+  width: 100%;
+
+  span {
+    display: block;
+  }
+
+}
+
+.bar {
+  background: white;
+  border-radius: 60px;
+}
+
+.progress {
+  animation: loader 30s linear forwards;
+  color: #fff;
+  width: 0;
+  height: 20px;
+  border-radius: 60px;
+}
+
+.progress-bar {
+  left: 50%;
+  max-width: 50%;
+  position: absolute;
+  top: 45%;
+  transform: translate3d(-50%,-50%,0);
+}

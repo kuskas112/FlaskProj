@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Music Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../images/icon.png">
+    <link href="{{ url_for('static', filename='css/main-page-style.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/modes-style.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="css-selector">
+<div class="context">
+    <h1>Угадай трек по тексту</h1>
+    <h1>Жанр: {{ genre.genre }}</h1>
+    <h1 id="gameResult">Выберите вариант</h1>
+</div>
+
+<div style="display: flex; justify-content: center;">
+    <div class="text-div">
+        {{ rightSong.songText.replace('\n', '<br>') | safe }}
+    </div>
+</div>
+
+<div>
+    <a  href="{{ url_for('index') }}" class="button-back" id="">
+        <div class="button-content">
+            <p>Вернуться на главную</p>
+        </div>
+    </a>
+</div>
+
+<div>
+    <a  href="{{ url_for('text_mode', genre_id=genre.id) }}" class="button-next" id="next">
+        <div class="button-content">
+            <p>Дальше</p>
+        </div>
+    </a>
+</div>
+
+<div style="display: grid;justify-content: center;">
+<div class="buttons">
+
+    {% if rightIndex == 0 %}
+    <a class="button" onclick="winClick({{ rightIndex }})">
+    {% else %}
+    <a class="button" onclick="loseClick({{ rightIndex }})">
+    {% endif %}
+
+      <div class="smth-content">
+        <p>{{ randomSongs[0].author }}</p>
+        <p>{{ randomSongs[0].songName }}</p>
+      </div>
+    </a>
+
+    {% if rightIndex == 1 %}
+    <a class="button" onclick="winClick({{ rightIndex }})">
+    {% else %}
+    <a class="button" onclick="loseClick({{ rightIndex }})">
+    {% endif %}
+
+      <div class="smth-content">
+        <p>{{ randomSongs[1].author }}</p>
+        <p>{{ randomSongs[1].songName }}</p>
+      </div>
+    </a>
+</div>
+
+<div class="buttons">
+    {% if rightIndex == 2 %}
+    <a class="button" onclick="winClick({{ rightIndex }})">
+    {% else %}
+    <a class="button" onclick="loseClick({{ rightIndex }})">
+    {% endif %}
+      <div class="smth-content">
+        <p>{{ randomSongs[2].author }}</p>
+        <p>{{ randomSongs[2].songName }}</p>
+      </div>
+    </a>
+
+    {% if rightIndex == 3 %}
+    <a class="button" onclick="winClick({{ rightIndex }})">
+    {% else %}
+    <a class="button" onclick="loseClick({{ rightIndex }})">
+    {% endif %}
+      <div class="smth-content">
+        <p>{{ randomSongs[3].author }}</p>
+        <p>{{ randomSongs[3].songName }}</p>
+      </div>
+    </a>
+</div>
+</div>
+
+<script src="{{ url_for('static', filename='js/clickHandler.js') }}"></script>
+
+</body>
+</html>

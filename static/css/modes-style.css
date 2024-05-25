@@ -1,0 +1,89 @@
+
+.buttons {
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    top: 20vh;
+
+}
+
+.button {
+  width: 270px;
+  height: 100px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  margin: 50px;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.smth-content {
+  position: relative;
+  top: 25%;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  background-color: white;
+}
+
+.button-back {
+    width: 150px;
+    height: 50px;
+    background: white;
+    opacity: 1;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    padding: 7px;
+    margin: 50px;
+    position: absolute;
+    top: -2%;
+    text-align: center;
+    display: flex;
+}
+
+.button-next {
+    width: 150px;
+    height: 50px;
+    background: white;
+    opacity: 1;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    padding: 7px;
+    margin: 50px;
+    position: absolute;
+    top: 60%;
+    left: 75%;
+    text-align: center;
+    display: none;
+}
+
+.button-next:hover{
+    opacity: 0.8
+}
+.button-back:hover{
+    opacity: 0.8
+}
+
+.button-content {
+font-weight: 600;
+color: rgb(0, 0, 0);
+}
+
+.text-div {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 10px;
+    top: 20vh;
+    background: white;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
