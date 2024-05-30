@@ -62,7 +62,7 @@
           <div class="modal__cards">
 
               {% for genre in genres %}
-              <a href="{{ url_for('audio_mode', genre_id=genre.id) }}">
+              <a href="{{ url_for('audio_mode', genre_id=genre.id, songInd=0) }}">
                   <div class="modal__card" tabindex="0">
                       <div class="modal__card-content">
                         <p>{{ genre.genre }}</p>
@@ -87,7 +87,7 @@
 
         <div class="modal__cards">
               {% for genre in genres %}
-              <a href="{{ url_for('text_mode', genre_id=genre.id) }}">
+              <a href="{{ url_for('text_mode', genre_id=genre.id, songInd=0) }}">
                   <div class="modal__card" tabindex="0">
                       <div class="modal__card-content">
                         <p>{{ genre.genre }}</p>

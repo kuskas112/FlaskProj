@@ -31,7 +31,7 @@
 </div>
 
 <div>
-    <a  href="{{ url_for('text_mode', genre_id=genre.id) }}" class="button-next" id="next">
+    <a  href="{{ url_for('text_mode', genre_id=genre.id, songInd=songInd+1) }}" class="button-next" id="next">
         <div class="button-content">
             <p>Дальше</p>
         </div>

@@ -3,12 +3,16 @@ function winClick(index) {
     const res = document.getElementById('gameResult');
     res.innerHTML = "Верно!";
     showRightAnswer(index);
+    fetch('/game_result/win')
+    .catch(error => console.error('Ошибка:', error));
 }
 
 function loseClick(index) {
     const res = document.getElementById('gameResult');
     res.innerHTML = "Не правильно("
     showRightAnswer(index);
+    fetch('/game_result/lose')
+    .catch(error => console.error('Ошибка:', error));
 }
 
 function showRightAnswer(index){

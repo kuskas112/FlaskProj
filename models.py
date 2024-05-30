@@ -31,6 +31,8 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(30), unique=True)
     password: Mapped[str] = mapped_column(String(30))
+    wins: Mapped[int] = mapped_column()
+    loses: Mapped[int] = mapped_column()
 
 
 # engine = create_engine('sqlite:///myDatabase.db', echo=True)

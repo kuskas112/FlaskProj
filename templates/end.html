@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Music Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../images/icon.png">
+    <link href="{{ url_for('static', filename='css/main-page-style.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/modes-style.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="css-selector">
+<div class="context">
+    <h1>Конец квиза</h1>
+    <h1>Победы: {{ wins }}</h1>
+    <h1>Поражения: {{ 10-wins }}</h1>
+    <h1>Общий процент побед для пользователя {{ userName }}: {{ totalWinRate }}</h1>
+</div>
+
+<div>
+    <a  href="{{ url_for('index') }}" class="button-back">
+        <div class="button-content">
+            <p>Вернуться на главную</p>
+        </div>
+    </a>
+</div>
+
+</body>
+</html>
