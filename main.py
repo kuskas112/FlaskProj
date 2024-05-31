@@ -67,17 +67,6 @@ def index():
         res.set_cookie('name', '', 0)
         return res
 
-
-@app.route('/game_result/<result>')
-def game_result(result):
-    wins = int(request.cookies.get('wins'))
-    response = make_response()
-    if result == 'win':
-        response.set_cookie('wins', str(wins + 1), 3600)
-    else:
-        response.set_cookie('wins', str(wins), 3600)
-    return response
-
 @app.route('/songs/<genre_id>')
 def get_songs(genre_id):
     with Session(engine) as session:
@@ -86,63 +75,17 @@ def get_songs(genre_id):
         randomSongs = [{'path': x.pathMusic, 'author': x.author, 'name': x.songName} for x in randomSongs]
         return jsonify(randomSongs)
 
-@app.route('/tiles/<genre_id>')
-def get_tiles(genre_id):
+
+
+@app.route('/end/<int:wins>')
+def end(wins):
+    return render_template('end.html', wins=wins)
+
+
+@app.route('/game/<mode>/<genre_id>')
+def game(mode, genre_id):
     with Session(engine) as session:
         genre = session.query(Genre).where(Genre.id == genre_id).first()
-        randomSongs = list(session.query(Song).where(Song.genre == genre.id).order_by(func.random()).limit(4))
-        randomSongs = [{'path': x.pathMusic, 'author': x.author, 'name': x.songName} for x in randomSongs]
-        return jsonify(randomSongs)
-
-
-
-@app.route('/game/<mode>/<genre_id>/<int:songInd>')
-def game(mode,genre_id, songInd):
-    with Session(engine) as session:
-        genre = session.query(Genre).where(Genre.id == genre_id).first()
-        randomSongs = list(session.query(Song).where(Song.genre == genre.id).order_by(func.random()).limit(4))
-        songsId = ''
-        allSongs = []
-        if songInd == 0:
-            allSongs = list(session.query(Song).where(Song.genre == genre.id).order_by(func.random()).limit(10))
-            for song in allSongs:
-                songsId += str(song.id) + ','
-        elif songInd == 10:
-            wins = int(request.cookies.get('wins'))
-            userName = 'Unlogged'
-            totalWinRate = 0
-            if wins == 10:
-                totalWinRate = 100
-            else:
-                totalWinRate = wins / (wins + (10 - wins)) * 100
-            if request.cookies.get('logged'):
-                user = session.query(User).where(User.name == request.cookies.get('name')).first()
-                user.wins += wins
-                user.loses += 10 - wins
-                session.commit()
-                userName = user.name
-                if user.loses == 0:
-                    totalWinRate = 100
-                else:
-                    totalWinRate = user.wins / (user.loses + user.wins) * 100
-            responce = make_response(
-                render_template('end.html', wins=wins, userName=userName, totalWinRate=totalWinRate))
-            responce.set_cookie('songsId', '-1', 0)
-            return responce
-        else:
-            songsId = request.cookies.get('songsId')
-            songsId = songsId[:-1]
-            IDs = songsId.split(',')
-            for id in IDs:
-                allSongs.append(session.query(Song).where(Song.id == id).first())
-        rightSong = allSongs[songInd]
-        random.shuffle(randomSongs)
-        rightIndex = None
-        if rightSong in randomSongs:
-            rightIndex = randomSongs.index(rightSong)
-        else:
-            rightIndex = random.randint(0, 3)
-            randomSongs[rightIndex] = rightSong
 
         template = ''
         if mode == 'audio_mode':
@@ -152,13 +95,7 @@ def game(mode,genre_id, songInd):
         else:
             template = 'main-page.html'
 
-        responce = make_response(
-            render_template(template, rightSong=rightSong, genre=genre, randomSongs=randomSongs,
-                            rightIndex=rightIndex, songInd=songInd))
-        if songInd == 0:
-            responce.set_cookie('wins', '0', 3600)
-            responce.set_cookie('songsId', songsId, 3600)
-        return responce
+        return render_template(template, genre=genre)
 
 
 if __name__ == '__main__':
