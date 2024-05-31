@@ -25,17 +25,16 @@
     </a>
 </div>
 
+
 <div>
-    <a  href="{{ url_for('game', mode='audio_mode', genre_id=genre.id, songInd=songInd+1) }}" class="button-next" id="next">
+    <a onclick="playNext()" class="button-next" id="next">
         <div class="button-content">
             <p>Дальше</p>
         </div>
     </a>
 </div>
 
-<audio id="myAudio" autoplay src="{{ url_for('static', filename='music/' + rightSong.pathMusic) }}"></audio>
-<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
-<script src="{{ url_for('static', filename='js/clickHandler.js') }}"></script>
+
 
 <div class="progress-bar">
   <span class="bar">
@@ -96,6 +95,16 @@
 </div>
 </div>
 
+
+<!--
+<audio id="myAudio" autoplay src="{{ url_for('static', filename='music/' + rightSong.pathMusic) }}"></audio>
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+-->
+<script>
+    let startPath = "{{ url_for('static', filename='music/') }}";
+    let genreId = "{{ genre.id }}";
+</script>
+<script src="{{ url_for('static', filename='js/clickHandler.js') }}"></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, jsonify
 from sqlalchemy import create_engine, select, func
 from sqlalchemy.orm import Session
 import random
@@ -77,6 +77,23 @@ def game_result(result):
     else:
         response.set_cookie('wins', str(wins), 3600)
     return response
+
+@app.route('/songs/<genre_id>')
+def get_songs(genre_id):
+    with Session(engine) as session:
+        genre = session.query(Genre).where(Genre.id == genre_id).first()
+        randomSongs = list(session.query(Song).where(Song.genre == genre.id).order_by(func.random()).limit(10))
+        randomSongs = [{'path': x.pathMusic, 'author': x.author, 'name': x.songName} for x in randomSongs]
+        return jsonify(randomSongs)
+
+@app.route('/tiles/<genre_id>')
+def get_tiles(genre_id):
+    with Session(engine) as session:
+        genre = session.query(Genre).where(Genre.id == genre_id).first()
+        randomSongs = list(session.query(Song).where(Song.genre == genre.id).order_by(func.random()).limit(4))
+        randomSongs = [{'path': x.pathMusic, 'author': x.author, 'name': x.songName} for x in randomSongs]
+        return jsonify(randomSongs)
+
 
 
 @app.route('/game/<mode>/<genre_id>/<int:songInd>')
