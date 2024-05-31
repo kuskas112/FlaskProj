@@ -45,8 +45,6 @@ def index():
                 newUser = User(
                     name=request.form['login'],
                     password=request.form['password'],
-                    wins=0,
-                    loses=0
                 )
                 if validateForm(newUser) == False:
                     return render_template('main-page.html', genres=genres, log='no', name='noName')
@@ -72,7 +70,7 @@ def get_songs(genre_id):
     with Session(engine) as session:
         genre = session.query(Genre).where(Genre.id == genre_id).first()
         randomSongs = list(session.query(Song).where(Song.genre == genre.id).order_by(func.random()).limit(10))
-        randomSongs = [{'path': x.pathMusic, 'author': x.author, 'name': x.songName} for x in randomSongs]
+        randomSongs = [{'path': x.pathMusic, 'author': x.author, 'name': x.songName, 'text': x.songText.replace('\n', '<br>')} for x in randomSongs]
         return jsonify(randomSongs)
 
 

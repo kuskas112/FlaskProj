@@ -67,7 +67,9 @@ function getAllSongs(){
         allSongs = data;
     })
     .then(prom => {
-        initializeAudio();
+        if(isAudio){
+            initializeAudio();
+        }
     })
     .then(prom => playNext())
     .catch(error => console.error('Ошибка:', error));
@@ -122,15 +124,29 @@ function playNext(){
         next.href = '/end/' + wins;
     }
     else if(currSong != 0){
-        audio[currSong-1].pause();
-        audio[currSong].play();
+        if(isAudio){
+            audio[currSong-1].pause();
+            audio[currSong].play();
+        }
+        else{
+            let text = document.getElementById('text');
+            text.innerHTML = allSongs[currSong]['text']
+        }
     }
     else{
-        audio[currSong].play();
+        if(isAudio){
+            audio[currSong].play();
+        }
+        else{
+            let text = document.getElementById('text');
+            text.innerHTML = allSongs[currSong]['text']
+        }
     }
     refreshTiles();
     hideButtonNext();
-    restartAnimation();
+    if (isAudio){
+        restartAnimation();
+    }
 
     const res = document.getElementById('gameResult');
     res.innerHTML = "Выбери вариант";

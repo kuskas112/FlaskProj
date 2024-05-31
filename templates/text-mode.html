@@ -17,8 +17,7 @@
 </div>
 
 <div style="display: flex; justify-content: center;">
-    <div class="text-div">
-        Тэкстик
+    <div class="text-div" id="text">
     </div>
 </div>
 
@@ -31,7 +30,7 @@
 </div>
 
 <div>
-    <a  href="{{ url_for('game', mode='text_mode', genre_id=genre.id, songInd=songInd+1) }}" class="button-next" id="next">
+    <a onclick="playNext()" class="button-next" id="next">
         <div class="button-content">
             <p>Дальше</p>
         </div>
